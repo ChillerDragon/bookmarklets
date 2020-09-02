@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChillerDragon's bookmarklets</title>
+</head>
+<body>
+    <h1>install instructions</h1>
+    <p>
+        rightclick the link and select "Bookmark This Link"
+    </p>
+    <a href="javascript:(function(){
+        document.querySelectorAll('#items .style-scope.ytd-grid-renderer').forEach(item => {
+            if (item.innerHTML.includes('ytd-thumbnail-overlay-resume-playback-renderer')) {
+                item.remove();
+            }
+        });
+    })();">filter-yt</a>
+</body>
+</html>
