@@ -11,11 +11,47 @@
         rightclick the link and select "Bookmark This Link"
     </p>
     <a href="javascript:(function(){
+        let c = 0;
         document.querySelectorAll('ytd-rich-item-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer, ytd-playlist-panel-video-renderer').forEach(item => {
             if (item.innerHTML.includes('ytd-thumbnail-overlay-resume-playback-renderer')) {
-                item.remove();
+                item.remove(); c++;
             }
         });
-    })();">filter-yt</a>
+        console.log('removed ' + c + ' entries');
+    })();">yt-filter-watched</a>
+    <a href="javascript:(function(){
+        let c = 0;
+        const filterStr = prompt('Enter title filter string', 'übersetzung');
+        document.querySelectorAll('ytd-rich-item-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer, ytd-playlist-panel-video-renderer').forEach(item => {
+            const title = item.querySelector('#video-title').innerText;
+            if (title.toLowerCase().includes(filterStr.toLowerCase())) {
+                item.remove(); c++;
+            }
+        });
+        console.log('removed ' + c + ' entries');
+    })();">yt-filter-str</a>
+    <a href="javascript:(function(){
+        let c = 0;
+        const minLength = prompt('Enter minimum video length (minutes)', '45');
+        document.querySelectorAll('ytd-rich-item-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer, ytd-playlist-panel-video-renderer').forEach(item => {
+            if (!item.querySelector('ytd-thumbnail-overlay-time-status-renderer')) {
+                return;
+            }
+            const time = item.querySelector('ytd-thumbnail-overlay-time-status-renderer').innerText;
+            const timeChunks = time.split(':');
+            let minutes = 0;
+            if (timeChunks.length === 2) {
+                minutes = (+timeChunks[0]);
+            } else if (timeChunks.length === 3) {
+                minutes = (+timeChunks[0]) * 60 + (+timeChunks[1]);
+            } else {
+                alert('error invalid video length: ' + time);
+            }
+            if (minLength > minutes) {
+                item.remove(); c++;
+            }
+        });
+        console.log('removed ' + c + ' entries');
+    })();">yt-filter-short</a>
 </body>
 </html>
