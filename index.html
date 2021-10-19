@@ -11,6 +11,12 @@
         rightclick the link and select "Bookmark This Link"
     </p>
     <a href="javascript:(function(){
+        document.querySelectorAll('input[type=checkbox]').forEach((checkbox) => {
+             checkbox.style.transform = "scale(8)";
+             console.log(checkbox);
+        });
+    })();">big-checkboxes</a>
+    <a href="javascript:(function(){
         let c = 0;
         document.querySelectorAll('ytd-rich-item-renderer, ytd-grid-video-renderer, ytd-compact-video-renderer, ytd-playlist-panel-video-renderer').forEach(item => {
             if (item.innerHTML.includes('ytd-thumbnail-overlay-resume-playback-renderer')) {
